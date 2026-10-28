@@ -1,103 +1,215 @@
-<!doctype html>
+
+<!DOCTYPE html>
 <html lang="ms">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>MaddzPlay V2</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#10091b">
+<title>MaddzPlay — Cinema Premium</title>
 <style>
-:root{--bg:#0d0b14;--panel:#191522;--panel2:#211b2d;--purple:#8b5cf6;--text:#f7f4ff;--muted:#b8b0c8;--line:#332a43}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,sans-serif}
-button,input{font:inherit}button{cursor:pointer;color:var(--text);border:0;border-radius:12px;padding:11px 15px;background:var(--purple);font-weight:700}
-header{position:sticky;top:0;z-index:5;background:#100d18ee;backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding:14px clamp(14px,4vw,42px);display:flex;align-items:center;gap:20px;flex-wrap:wrap}
-.logo{font-size:22px;font-weight:900;letter-spacing:1px}.logo span{color:#b69aff}
-nav{display:flex;gap:8px;flex-wrap:wrap}nav button{background:transparent;color:var(--muted);padding:9px 12px}nav button.active,nav button:hover{background:var(--panel2);color:white}
-.search{margin-left:auto;min-width:180px;max-width:300px;flex:1;background:var(--panel);border:1px solid var(--line);color:white;border-radius:12px;padding:11px 13px}
-main{max-width:1350px;margin:auto;padding:24px clamp(14px,4vw,42px) 60px}
-.hero{min-height:300px;border-radius:24px;padding:clamp(24px,5vw,54px);display:flex;align-items:end;background:radial-gradient(circle at 75% 25%,#8c54c9 0,#4c2b72 23%,transparent 52%),linear-gradient(120deg,#211b36,#312046 55%,#17111f);overflow:hidden;position:relative}
-.hero:after{content:"✦";position:absolute;right:9%;top:8%;font-size:clamp(100px,25vw,240px);color:#ffffff12}
-.hero-content{position:relative;z-index:1;max-width:650px}.eyebrow{color:#d3c2ff;font-weight:800;font-size:12px;letter-spacing:2px}.hero h1{font-size:clamp(30px,5vw,54px);line-height:1.04;margin:10px 0}.hero p{max-width:540px;color:#e0d8ed;line-height:1.6}.actions{display:flex;gap:10px;flex-wrap:wrap}.secondary{background:#ffffff16;border:1px solid #ffffff30}
-.section-head{display:flex;align-items:center;justify-content:space-between;margin:30px 0 14px;gap:10px}.section-head h2{margin:0;font-size:22px}.muted{color:var(--muted);font-size:13px}
-.chips{display:flex;gap:8px;overflow:auto;padding:2px 0 8px}.chip{background:var(--panel);border:1px solid var(--line);white-space:nowrap;color:var(--muted)}.chip.active{background:#6940b7;color:white}
-.grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:16px}
-.card{min-width:0;cursor:pointer;border-radius:15px;overflow:hidden;background:var(--panel);border:1px solid transparent;transition:transform .15s,border-color .15s}.card:hover,.card:focus{transform:translateY(-3px);border-color:#8b5cf6;outline:none}
-.poster{height:clamp(130px,22vw,235px);display:flex;align-items:center;justify-content:center;text-align:center;padding:12px;font-size:20px;font-weight:900;letter-spacing:.5px;position:relative;overflow:hidden;background:linear-gradient(145deg,var(--c1),var(--c2))}
-.poster:before,.detail-art:before{content:"";position:absolute;width:180px;height:180px;border:1px solid #ffffff35;border-radius:50%;right:-50px;top:-40px;box-shadow:0 0 0 25px #ffffff08,0 0 0 50px #ffffff06}
-.poster span{position:relative;text-shadow:0 2px 15px #0008}.badge{position:absolute;left:8px;top:8px;background:#100d18c9;padding:5px 7px;border-radius:7px;font-size:10px;letter-spacing:.5px}
-.card-info{padding:10px}.card-title{font-size:14px;font-weight:750;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.card-meta{color:var(--muted);font-size:12px;margin-top:4px}
-.empty{padding:40px;text-align:center;color:var(--muted);background:var(--panel);border-radius:16px}
-.bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:6;background:#100d18f5;border-top:1px solid var(--line);padding:8px;justify-content:space-around}
-.bottom-nav button{background:transparent;padding:8px;color:var(--muted)}
-.overlay{position:fixed;inset:0;background:#05040aeF;z-index:10;overflow:auto;padding:20px;display:none}.detail-wrap{max-width:850px;margin:20px auto;background:var(--panel);border:1px solid var(--line);border-radius:22px;overflow:hidden}
-.detail-art{min-height:230px;padding:24px;display:flex;align-items:end;position:relative;background:linear-gradient(120deg,var(--c1),var(--c2));overflow:hidden}.detail-art>*{position:relative;z-index:1}.detail-body{padding:24px}.detail-body h2{font-size:32px;margin:0 0 8px}.detail-body p{color:#d0c8dc;line-height:1.65}.episode-list{display:grid;gap:8px;margin-top:14px}.episode{background:var(--panel2);padding:14px;border-radius:10px;display:flex;justify-content:space-between;gap:12px;align-items:center}
-.player-box{width:100%;aspect-ratio:16/9;background:#050505;border-radius:12px;overflow:hidden;margin-top:16px}.player-box video{width:100%;height:100%;background:#000}
-footer{text-align:center;color:#80778e;padding:28px 12px;font-size:12px}
-@media(max-width:950px){.grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
-@media(max-width:600px){header{gap:10px}.logo{width:100%}nav{order:3;width:100%;justify-content:space-between}nav button{padding:8px}.search{max-width:none;margin-left:0;width:100%;order:2}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.poster{height:210px}.hero{min-height:300px}.bottom-nav{display:flex}main{padding-bottom:85px}.detail-body{padding:17px}.detail-art{min-height:190px}}
+:root{--bg:#10091b;--panel:#1c1229;--purple:#a855f7;--muted:#a99bb8;--white:#fff}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--white);font-family:Arial,Helvetica,sans-serif}
+button,input{font:inherit}
+button{cursor:pointer}
+header{height:72px;padding:0 5%;display:flex;align-items:center;gap:30px;background:#10091bf2;position:sticky;top:0;z-index:10;border-bottom:1px solid #ffffff10;backdrop-filter:blur(15px)}
+.logo{font-size:23px;font-weight:900;letter-spacing:-1px;white-space:nowrap}
+.logo span{color:#c084fc}
+nav{display:flex;gap:22px;flex:1}
+nav button,.mobile button{border:0;background:none;color:#b9adc7}
+nav button.active,nav button:hover,.mobile button.active{color:#d8b4fe}
+.search{width:min(230px,30vw);background:#ffffff0c;border:1px solid #ffffff1a;border-radius:24px;padding:11px 14px;color:white;outline:none}
+.search:focus{border-color:var(--purple)}
+.hero{min-height:410px;padding:55px 6%;display:flex;align-items:center;position:relative;overflow:hidden;background:linear-gradient(90deg,#160b25 0%,#160b25e8 40%,#160b2540 100%),radial-gradient(ellipse at 80% 45%,#9b45d6 0%,#46205f 27%,#170d25 65%)}
+.hero:after{content:"";position:absolute;width:320px;height:420px;right:13%;top:20px;border-radius:170px 170px 30px 30px;background:linear-gradient(145deg,#f0abfc,#7e22ce 42%,#241039 78%);box-shadow:0 0 100px #a855f766;transform:rotate(8deg);opacity:.72}
+.hero:before{content:"M";position:absolute;right:17%;top:30px;font-size:330px;font-weight:900;color:#ffffff17;z-index:1}
+.hero-content{position:relative;z-index:2;max-width:570px}
+.eyebrow{font-size:11px;letter-spacing:3px;color:#d8b4fe;font-weight:bold}
+.hero h1{font-size:clamp(38px,6vw,67px);line-height:.98;letter-spacing:-2px;margin:18px 0}
+.hero p{color:#d2c4df;line-height:1.7;max-width:460px;font-size:14px}
+.actions{display:flex;gap:10px;margin-top:25px;flex-wrap:wrap}
+.primary,.secondary{border:0;border-radius:9px;padding:13px 19px;font-weight:bold}
+.primary{background:#a855f7;color:white}
+.primary:hover{background:#9333ea}
+.secondary{background:#ffffff17;color:white;border:1px solid #ffffff22}
+main{padding:28px 5% 90px}
+.section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:10px 0 18px}
+.section-head h2{font-size:21px;margin:0}
+.section-head small{color:var(--muted)}
+.chips{display:flex;gap:9px;overflow:auto;padding-bottom:20px}
+.chip{border:1px solid #ffffff1c;background:#ffffff08;color:#cbbdd7;border-radius:20px;padding:8px 15px;white-space:nowrap}
+.chip.active,.chip:hover{background:#8b35c6;border-color:#8b35c6;color:white}
+.grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:18px 13px}
+.movie{min-width:0;cursor:pointer}
+.poster{aspect-ratio:2/3;border-radius:11px;overflow:hidden;position:relative;display:flex;align-items:center;justify-content:center;text-align:center;padding:12px;isolation:isolate;transition:.25s;box-shadow:0 8px 25px #0004}
+.poster:before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(160deg,transparent 20%,#100817 100%)}
+.movie:hover .poster{transform:translateY(-5px);box-shadow:0 12px 30px #a855f744}
+.art-title{font-size:clamp(15px,2vw,25px);font-weight:1000;letter-spacing:-1px;text-shadow:0 3px 12px #000;line-height:1.05}
+.poster-tag{position:absolute;top:9px;left:8px;background:#100817b8;border-radius:4px;padding:5px 6px;font-size:9px;letter-spacing:1px}
+.poster-number{position:absolute;bottom:-15px;right:5px;font-size:90px;font-weight:900;color:#ffffff1a;z-index:-1}
+.movie h3{font-size:13px;margin:10px 0 5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.movie p{font-size:11px;color:var(--muted);margin:0}
+.empty{color:var(--muted);padding:35px 0}
+footer{text-align:center;color:#766881;padding:25px;font-size:12px;border-top:1px solid #ffffff0c}
+.mobile{display:none}
+.overlay{position:fixed;inset:0;background:#08050de8;z-index:30;display:none;align-items:center;justify-content:center;padding:18px;overflow:auto}
+.overlay.show{display:flex}
+.modal{width:min(650px,100%);background:#1c1229;border:1px solid #ffffff18;border-radius:17px;overflow:hidden;position:relative;margin:auto}
+.modal-art{height:210px;background:radial-gradient(ellipse at 75% 40%,#a855f7,#38164e 45%,#160b22);display:flex;align-items:center;padding:25px}
+.modal-art h2{font-size:36px;max-width:70%;text-shadow:0 3px 15px #000}
+.close{position:absolute;right:12px;top:12px;width:35px;height:35px;border:0;border-radius:50%;background:#100817cc;color:white;font-size:20px}
+.modal-body{padding:22px}
+.meta{color:#d8b4fe;font-size:12px;margin-bottom:12px}
+.modal-body p{color:#c6b7d1;line-height:1.7;font-size:14px}
+.modal-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:20px}
+.player{width:min(850px,100%);background:#100817;border-radius:12px;padding:15px}
+.player video{width:100%;max-height:70vh;background:black;border-radius:8px}
+.player-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.player-top button{background:#ffffff16;color:white;border:0;border-radius:7px;padding:8px 12px}
+@media(max-width:950px){.grid{grid-template-columns:repeat(4,minmax(0,1fr))}.hero:after{right:5%;opacity:.42}}
+@media(max-width:600px){header{height:62px;padding:0 16px;gap:12px}.logo{font-size:20px}nav{display:none}.search{margin-left:auto;width:44%;font-size:12px;padding:10px}.hero{min-height:360px;padding:38px 22px}.hero:after{right:-100px;opacity:.3}.hero:before{right:-50px;font-size:260px}.hero h1{font-size:44px}.hero p{font-size:13px}.hero-content{max-width:90%}main{padding:22px 15px 95px}.grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:17px 10px}.art-title{font-size:18px}.movie h3{font-size:12px}.section-head h2{font-size:19px}.mobile{display:flex;position:fixed;z-index:20;bottom:0;left:0;right:0;background:#160d22f5;border-top:1px solid #ffffff16;justify-content:space-around;padding:12px 4px calc(12px + env(safe-area-inset-bottom));backdrop-filter:blur(15px)}.mobile button{font-size:11px;display:flex;flex-direction:column;gap:5px;align-items:center}.mobile b{font-size:19px;font-weight:400}.modal-art{height:170px}.modal-art h2{font-size:29px}}
 </style>
 </head>
 <body>
 <header>
   <div class="logo">MADDZ<span>PLAY</span></div>
   <nav id="nav">
-    <button class="active" data-filter="All">Home</button>
-    <button data-filter="Movie">Movie</button>
-    <button data-filter="Series">Series</button>
-    <button data-filter="Anime">Anime</button>
-    <button data-filter="My List">♥ My List</button>
+    <button class="active" data-category="All">Home</button>
+    <button data-category="Movie">Movies</button>
+    <button data-category="Series">Series</button>
+    <button data-category="Anime">Anime</button>
+    <button data-category="My List">My List</button>
   </nav>
-  <input id="search" class="search" placeholder="Cari movie atau series…" aria-label="Cari katalog">
+  <input class="search" id="search" placeholder="⌕ Cari tajuk..." aria-label="Cari tajuk">
 </header>
-<main>
-  <section class="hero">
-    <div class="hero-content">
-      <div class="eyebrow">YOUR NEXT FAVOURITE STORY</div>
-      <h1>Discover something<br>extraordinary.</h1>
-      <p>Terokai dunia cerita, pengembaraan dan misteri dalam satu tempat. Katalog ini menggunakan tajuk rekaan untuk demo MaddzPlay.</p>
-      <div class="actions"><button id="featuredPlay">▶  Play Demo</button><button id="featuredInfo" class="secondary">ⓘ  More Info</button></div>
+
+<section class="hero">
+  <div class="hero-content">
+    <div class="eyebrow">MADDZPLAY ORIGINAL EXPERIENCE</div>
+    <h1>YOUR NEXT<br>FAVOURITE<br><span style="color:#d8b4fe">STORY.</span></h1>
+    <p>Terokai dunia filem, siri dan anime dalam satu tempat. Pilih cerita kegemaran anda dan nikmati pengalaman katalog sinematik.</p>
+    <div class="actions">
+      <button class="primary" id="featuredPlay">▶ &nbsp; Tonton Demo</button>
+      <button class="secondary" id="featuredInfo">ⓘ &nbsp; Maklumat</button>
     </div>
-  </section>
-  <div class="section-head"><h2 id="sectionTitle">Trending Now</h2><span class="muted" id="resultCount"></span></div>
-  <div class="chips" id="chips">
-    <button class="chip active" data-genre="All">All</button><button class="chip" data-genre="Action">Action</button><button class="chip" data-genre="Adventure">Adventure</button><button class="chip" data-genre="Comedy">Comedy</button><button class="chip" data-genre="Sci-Fi">Sci-Fi</button><button class="chip" data-genre="Mystery">Mystery</button><button class="chip" data-genre="Romance">Romance</button>
   </div>
-  <section class="grid" id="grid"></section>
-  <footer>MaddzPlay Demo • Tajuk dan artwork ialah kandungan contoh, bukan katalog streaming sebenar.</footer>
+</section>
+
+<main>
+  <div class="section-head">
+    <h2 id="sectionTitle">Pilihan Untuk Anda</h2>
+    <small id="count"></small>
+  </div>
+  <div class="chips" id="chips">
+    <button class="chip active" data-genre="All">Semua</button>
+    <button class="chip" data-genre="Action">Action</button>
+    <button class="chip" data-genre="Adventure">Adventure</button>
+    <button class="chip" data-genre="Sci-Fi">Sci-Fi</button>
+    <button class="chip" data-genre="Fantasy">Fantasy</button>
+    <button class="chip" data-genre="Drama">Drama</button>
+  </div>
+  <div class="grid" id="grid"></div>
+  <div class="empty" id="empty" hidden>Tiada tajuk ditemui. Cuba carian lain.</div>
 </main>
-<div class="bottom-nav"><button data-filter="All">⌂<br>Home</button><button data-filter="Movie">▣<br>Movie</button><button data-filter="Series">▤<br>Series</button><button data-filter="My List">♥<br>My List</button></div>
-<div class="overlay" id="overlay" role="dialog" aria-modal="true"></div>
+
+<footer>MADDZPLAY © 2026 · Cinema Premium · Katalog demo</footer>
+
+<div class="mobile">
+  <button class="active" data-category="All"><b>⌂</b>Home</button>
+  <button data-category="Movie"><b>▣</b>Movies</button>
+  <button data-category="Series"><b>▤</b>Series</button>
+  <button data-category="Anime"><b>✦</b>Anime</button>
+  <button data-category="My List"><b>♡</b>My List</button>
+</div>
+
+<div class="overlay" id="detailOverlay">
+  <div class="modal">
+    <button class="close" id="closeDetail" aria-label="Tutup">×</button>
+    <div class="modal-art" id="modalArt"><h2 id="modalTitle"></h2></div>
+    <div class="modal-body">
+      <div class="meta" id="modalMeta"></div>
+      <p id="modalDesc"></p>
+      <div class="modal-actions">
+        <button class="primary" id="modalPlay">▶ Tonton Demo</button>
+        <button class="secondary" id="modalSave">♡ Tambah ke My List</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="playerOverlay">
+  <div class="player">
+    <div class="player-top"><strong id="playerTitle">Demo Player</strong><button id="closePlayer">Tutup ✕</button></div>
+    <video id="video" controls playsinline preload="metadata">
+      <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+      Pelayar anda tidak menyokong video.
+    </video>
+    <p style="color:#a99bb8;font-size:12px">Ini video demo sahaja. Katalog ini belum disambungkan kepada server streaming sebenar.</p>
+  </div>
+</div>
+
 <script>
-const items=[
-{id:1,title:"Galactic Journey",type:"Movie",genre:"Sci-Fi",year:2025,rating:"8.4",c1:"#483b91",c2:"#11152e",desc:"Pengembaraan fiksyen merentasi galaksi membawa kru kecil ke dunia yang belum pernah diterokai. Mereka perlu bekerjasama untuk mencari jalan pulang.",episodes:0},
-{id:2,title:"Mystery Island",type:"Movie",genre:"Adventure",year:2024,rating:"7.9",c1:"#147b86",c2:"#14283f",desc:"Sekumpulan sahabat menemui sebuah pulau misteri yang menyimpan rahsia lama dan teka-teki yang perlu diselesaikan.",episodes:0},
-{id:3,title:"Shadow Detective",type:"Series",genre:"Mystery",year:2025,rating:"9.1",c1:"#8a385f",c2:"#21172d",desc:"Seorang detektif menyiasat kes pelik di bandar yang penuh rahsia. Setiap petunjuk membawa kepada misteri yang lebih besar.",episodes:8},
-{id:4,title:"The Last Kingdom",type:"Series",genre:"Action",year:2024,rating:"8.2",c1:"#8a4e2b",c2:"#291d2b",desc:"Seorang wira muda menghadapi cabaran untuk melindungi kerajaannya dalam kisah aksi fantasi rekaan.",episodes:10},
-{id:5,title:"Dreams of Tomorrow",type:"Series",genre:"Romance",year:2025,rating:"8.0",c1:"#b05d94",c2:"#362c65",desc:"Dua insan bertemu secara tidak sengaja dan mula membina impian bersama sambil menghadapi perubahan hidup.",episodes:12},
-{id:6,title:"Ocean Secrets",type:"Movie",genre:"Adventure",year:2023,rating:"7.7",c1:"#287d91",c2:"#14213c",desc:"Ekspedisi ke dasar laut menemukan tinggalan misteri yang mengubah pemahaman mereka tentang sejarah.",episodes:0},
-{id:7,title:"Pixel Rangers",type:"Anime",genre:"Action",year:2025,rating:"8.6",c1:"#d45a4d",c2:"#532a70",desc:"Pasukan muda mengembara ke dunia digital untuk menyelamatkan bandar mereka daripada ancaman misteri.",episodes:12},
-{id:8,title:"Laughing Planet",type:"Movie",genre:"Comedy",year:2024,rating:"7.5",c1:"#d38b30",c2:"#713e66",desc:"Komedi fiksyen tentang pelancong angkasa yang tersalah mendarat di planet paling pelik dalam galaksi.",episodes:0},
-{id:9,title:"Neon District",type:"Series",genre:"Sci-Fi",year:2025,rating:"8.8",c1:"#207f83",c2:"#442a76",desc:"Di bandar futuristik, seorang juruteknik menemui rahsia di sebalik sistem yang mengawal kehidupan penduduk.",episodes:6},
-{id:10,title:"Hidden Recipe",type:"Series",genre:"Comedy",year:2023,rating:"7.8",c1:"#b06b3e",c2:"#49345e",desc:"Keluarga kecil membuka restoran dan menemui bahawa setiap pelanggan membawa kisah lucu tersendiri.",episodes:8},
-{id:11,title:"Moonlight Academy",type:"Anime",genre:"Adventure",year:2024,rating:"8.3",c1:"#5c55a7",c2:"#2d315f",desc:"Pelajar di sebuah akademi ajaib belajar mengawal kuasa sambil menyiasat kejadian aneh di sekolah mereka.",episodes:13},
-{id:12,title:"Final Signal",type:"Movie",genre:"Sci-Fi",year:2022,rating:"8.1",c1:"#4d657a",c2:"#1b1b38",desc:"Isyarat misteri dari jauh di angkasa memberi amaran tentang peristiwa yang bakal mengubah dunia.",episodes:0}
+const titles=[
+{id:1,title:"Shadow Protocol",type:"Movie",genre:"Action",year:2026,rating:"8.4",colors:["#d946ef","#17102b"],desc:"Sebuah misi rahsia membawa seorang ejen ke dalam dunia pengkhianatan dan konspirasi.",tag:"FEATURED"},
+{id:2,title:"Beyond Orbit",type:"Movie",genre:"Sci-Fi",year:2025,rating:"8.1",colors:["#38bdf8","#101735"],desc:"Krew angkasa mencari jawapan di sebalik isyarat misteri dari galaksi jauh.",tag:"SCI-FI"},
+{id:3,title:"Kingdom of Ash",type:"Series",genre:"Fantasy",year:2026,rating:"9.0",colors:["#f97316","#321323"],desc:"Perebutan takhta mengubah nasib sebuah kerajaan yang hampir musnah.",tag:"POPULAR"},
+{id:4,title:"Last Horizon",type:"Movie",genre:"Adventure",year:2025,rating:"7.9",colors:["#34d399","#0c292b"],desc:"Pengembaraan merentas benua demi mencari sebuah kota yang hilang.",tag:"ADVENTURE"},
+{id:5,title:"Neon District",type:"Series",genre:"Action",year:2026,rating:"8.6",colors:["#fb7185","#21102d"],desc:"Di kota yang tidak pernah tidur, seorang penyiasat membongkar rahsia gelap.",tag:"NEW"},
+{id:6,title:"Silent Echo",type:"Movie",genre:"Drama",year:2024,rating:"8.2",colors:["#a78bfa","#17112e"],desc:"Pertemuan tidak dijangka membuka semula kisah lama sebuah keluarga.",tag:"DRAMA"},
+{id:7,title:"Starbound",type:"Anime",genre:"Sci-Fi",year:2026,rating:"8.8",colors:["#60a5fa","#171447"],desc:"Seorang remaja menemui kuasa yang boleh mengubah masa depan manusia.",tag:"ANIME"},
+{id:8,title:"Crimson Blade",type:"Anime",genre:"Action",year:2025,rating:"8.5",colors:["#ef4444","#260b20"],desc:"Seorang pendekar muda mengejar kebenaran di sebalik sumpahan purba.",tag:"ACTION"},
+{id:9,title:"Moonlit Academy",type:"Anime",genre:"Fantasy",year:2026,rating:"8.3",colors:["#c084fc","#20133d"],desc:"Akademi misteri menyimpan rahsia yang hanya muncul selepas tengah malam.",tag:"FANTASY"},
+{id:10,title:"Deep Blue",type:"Series",genre:"Adventure",year:2024,rating:"7.8",colors:["#22d3ee","#09283b"],desc:"Pasukan penyelidik menyiasat penemuan luar biasa di dasar lautan.",tag:"SERIES"},
+{id:11,title:"The Final Hour",type:"Movie",genre:"Action",year:2025,rating:"8.0",colors:["#fbbf24","#38200c"],desc:"Perlumbaan dengan masa bermula apabila sebuah bandar menghadapi ancaman.",tag:"THRILLER"},
+{id:12,title:"Velvet Dreams",type:"Series",genre:"Drama",year:2026,rating:"8.1",colors:["#f472b6","#32102d"],desc:"Cita-cita, persahabatan dan cinta bertembung dalam dunia seni moden.",tag:"DRAMA"}
 ];
-let filter="All",genre="All",myList=new Set();
-const grid=document.getElementById("grid"),search=document.getElementById("search"),overlay=document.getElementById("overlay");
-function matches(x){let q=search.value.trim().toLowerCase();return(filter==="All"||filter==="My List"&&myList.has(x.id)||filter!=="My List"&&x.type===filter)&&(genre==="All"||x.genre===genre)&&(!q||(x.title+" "+x.genre+" "+x.type+" "+x.desc).toLowerCase().includes(q))}
-function render(){let list=items.filter(matches);grid.innerHTML="";document.getElementById("resultCount").textContent=list.length+" titles";document.getElementById("sectionTitle").textContent=filter==="My List"?"My List":search.value?"Search Results":filter==="All"?"Trending Now":filter+" Collection";
-if(!list.length){grid.innerHTML='<div class="empty" style="grid-column:1/-1">Tiada tajuk ditemui. Cuba carian atau kategori lain.</div>';return}
-list.forEach(x=>{let c=document.createElement("article");c.className="card";c.tabIndex=0;c.innerHTML=`<div class="poster" style="--c1:${x.c1};--c2:${x.c2}"><span>${x.title}</span><b class="badge">${x.type.toUpperCase()}</b></div><div class="card-info"><div class="card-title">${x.title}</div><div class="card-meta">${x.year} · ★ ${x.rating} · ${x.genre}</div></div>`;c.onclick=()=>details(x.id);c.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();details(x.id)}};grid.appendChild(c)})}
-function details(id){let x=items.find(a=>a.id===id);overlay.style.display="block";overlay.innerHTML=`<div class="detail-wrap"><div class="detail-art" style="--c1:${x.c1};--c2:${x.c2}"><div><div class="eyebrow">${x.type.toUpperCase()} · ${x.year} · ★ ${x.rating}</div><h1 style="font-size:clamp(30px,6vw,48px);margin:10px 0 0">${x.title}</h1></div></div><div class="detail-body"><button class="secondary" id="close">← Back</button><p>${x.desc}</p><div class="actions"><button id="play">▶ Play Demo</button><button class="secondary" id="save">${myList.has(x.id)?"♥ Remove from My List":"♡ Add to My List"}</button></div>${x.episodes?`<h3>Episodes</h3><div class="episode-list">${Array.from({length:x.episodes},(_,i)=>`<div class="episode"><span>Episode ${i+1}<br><small class="muted">Demo episode · ${22+i%8} min</small></span><button data-episode="${i+1}">▶ Play</button></div>`).join("")}</div>`:""}<div id="playerArea"></div><p class="muted">Demo sahaja. Untuk streaming sebenar, sambungkan sumber video yang anda mempunyai hak untuk siarkan.</p></div></div>`;
-document.getElementById("close").onclick=closeDetails;document.getElementById("save").onclick=()=>{myList.has(x.id)?myList.delete(x.id):myList.add(x.id);details(x.id);render()};document.getElementById("play").onclick=()=>player();overlay.querySelectorAll("[data-episode]").forEach(b=>b.onclick=()=>player())}
-function player(){let area=document.getElementById("playerArea");area.innerHTML=`<h3>Demo Player</h3><div class="player-box"><video controls playsinline preload="metadata" src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"></video></div><p class="muted">Video contoh awam; sambungan internet diperlukan.</p>`;area.scrollIntoView({behavior:"smooth",block:"start"})}
-function closeDetails(){overlay.style.display="none";overlay.innerHTML=""}
-function setFilter(f){filter=f;document.querySelectorAll("[data-filter]").forEach(b=>b.classList.toggle("active",b.dataset.filter===f));render()}
-document.querySelectorAll("[data-filter]").forEach(b=>b.addEventListener("click",()=>{setFilter(b.dataset.filter);if(b.closest(".bottom-nav"))window.scrollTo({top:0,behavior:"smooth"})}));
-document.querySelectorAll("[data-genre]").forEach(b=>b.addEventListener("click",()=>{genre=b.dataset.genre;document.querySelectorAll("[data-genre]").forEach(k=>k.classList.toggle("active",k===b));render()}));
-search.addEventListener("input",render);
-document.getElementById("featuredInfo").onclick=()=>details(1);
-document.getElementById("featuredPlay").onclick=()=>{details(1);setTimeout(player,0)};
-overlay.addEventListener("click",e=>{if(e.target===overlay)closeDetails()});
-document.addEventListener("keydown",e=>{if(e.key==="Escape")closeDetails()});
+let category="All",genre="All",query="",selected=null;
+let saved=new Set(JSON.parse(localStorage.getItem("maddzplay-list")||"[]"));
+const $=id=>document.getElementById(id);
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function saveList(){localStorage.setItem("maddzplay-list",JSON.stringify([...saved]));}
+function render(){
+ let list=titles.filter(m=>(category==="All"||m.type===category||(category==="My List"&&saved.has(m.id)))&&(genre==="All"||m.genre===genre)&&(`${m.title} ${m.type} ${m.genre} ${m.year}`.toLowerCase().includes(query.toLowerCase())));
+ $("grid").innerHTML=list.map(m=>`<article class="movie" data-id="${m.id}" tabindex="0" role="button" aria-label="Lihat ${esc(m.title)}">
+ <div class="poster" style="background:radial-gradient(ellipse at 50% 25%,${m.colors[0]},${m.colors[1]} 75%)">
+ <span class="poster-tag">${esc(m.tag)}</span><span class="art-title">${esc(m.title.toUpperCase())}</span><span class="poster-number">${String(m.id).padStart(2,"0")}</span>
+ </div><h3>${esc(m.title)}</h3><p>${m.year} · ${esc(m.type)} · ★ ${m.rating}</p></article>`).join("");
+ $("count").textContent=list.length+" tajuk";
+ $("empty").hidden=list.length>0;
+ $("sectionTitle").textContent=query? "Hasil Carian":category==="My List"?"My List":category==="All"?"Pilihan Untuk Anda":category+" Pilihan";
+ document.querySelectorAll("[data-category]").forEach(b=>b.classList.toggle("active",b.dataset.category===category));
+}
+function showDetail(id){
+ selected=titles.find(m=>m.id===Number(id));if(!selected)return;
+ $("modalTitle").textContent=selected.title;
+ $("modalArt").style.background=`radial-gradient(ellipse at 75% 40%,${selected.colors[0]},${selected.colors[1]} 75%)`;
+ $("modalMeta").textContent=`${selected.year}  ·  ${selected.type}  ·  ${selected.genre}  ·  ★ ${selected.rating}`;
+ $("modalDesc").textContent=selected.desc;
+ $("modalSave").textContent=saved.has(selected.id)?"♥ Buang dari My List":"♡ Tambah ke My List";
+ $("detailOverlay").classList.add("show");
+}
+function toggleSave(){
+ if(!selected)return;
+ if(saved.has(selected.id))saved.delete(selected.id);else saved.add(selected.id);
+ saveList();$("modalSave").textContent=saved.has(selected.id)?"♥ Buang dari My List":"♡ Tambah ke My List";render();
+}
+function playDemo(m){
+ $("playerTitle").textContent=(m?m.title:"MaddzPlay")+" — Demo Player";
+ $("detailOverlay").classList.remove("show");$("playerOverlay").classList.add("show");
+}
+document.querySelectorAll("[data-category]").forEach(b=>b.addEventListener("click",()=>{category=b.dataset.category;genre="All";document.querySelectorAll("[data-genre]").forEach(x=>x.classList.toggle("active",x.dataset.genre==="All"));render();window.scrollTo({top:0,behavior:"smooth"});}));
+document.querySelectorAll("[data-genre]").forEach(b=>b.addEventListener("click",()=>{genre=b.dataset.genre;document.querySelectorAll("[data-genre]").forEach(x=>x.classList.toggle("active",x===b));render();}));
+$("search").addEventListener("input",e=>{query=e.target.value;render();});
+$("grid").addEventListener("click",e=>{const card=e.target.closest("[data-id]");if(card)showDetail(card.dataset.id);});
+$("grid").addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){const card=e.target.closest("[data-id]");if(card){e.preventDefault();showDetail(card.dataset.id);}}});
+$("closeDetail").onclick=()=>$("detailOverlay").classList.remove("show");
+$("closePlayer").onclick=()=>{$("video").pause();$("playerOverlay").classList.remove("show");};
+$("modalSave").onclick=toggleSave;
+$("modalPlay").onclick=()=>playDemo(selected);
+$("featuredInfo").onclick=()=>showDetail(1);
+$("featuredPlay").onclick=()=>playDemo(titles[0]);
+["detailOverlay","playerOverlay"].forEach(id=>$(id).addEventListener("click",e=>{if(e.target.id===id){if(id==="playerOverlay")$("video").pause();$(id).classList.remove("show");}}));
+document.addEventListener("keydown",e=>{if(e.key==="Escape"){document.querySelectorAll(".overlay").forEach(o=>o.classList.remove("show"));$("video").pause();}});
 render();
 </script>
 </body>
